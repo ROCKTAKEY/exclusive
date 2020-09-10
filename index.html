@@ -1,10 +1,22 @@
 <html>
     <head>
+        <title>Exclusive</title>
+        <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
+        <h1>Exclusive</h1>
+        <div id="firebaseui-auth-container"></div>
+        <div id="auth-loader">Now loading...</div>
+        <div id="signed"></div>
+        <button id="logout" style="display: none">logout</button>
+        <div id="game-list-view"></div>
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
-
+        <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
         <!-- TODO: Add SDKs for Firebase products that you want to use
              https://firebase.google.com/docs/web/setup#available-libraries -->
         <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
@@ -25,5 +37,6 @@
          firebase.initializeApp(firebaseConfig);
          firebase.analytics();
         </script>
+        <script type="text/javascript" src="main.js"></script>
     </body>
 </html>
