@@ -13,7 +13,7 @@ const colorBonus = 0.25;
 
 const houseBonus = 1;
 
-const tax = 100;
+const tax = 200;
 
 const housePriceRate = 1;
 
@@ -744,7 +744,7 @@ function payTax(snapshotGameDetail: firebase.database.DataSnapshot) {
 }
 
 function calcRent(land, bonusp: boolean) {
-    return ((land.house * houseBonus + 1) * land.value) * (1 + (bonusp ? colorBonus : 0));
+    return ((land.house * houseBonus + 1) * land.value) * (1 + (bonusp ? colorBonus : 0)) / 2;
 }
 
 function proposeSell(snapshotGameDetail: firebase.database.DataSnapshot,
