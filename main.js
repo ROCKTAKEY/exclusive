@@ -161,11 +161,13 @@ function updateGame(snapshotGameDetail) {
             break;
         case "propose":
             if (snapshotGameDetail.child("propose").child("type").val() == "buy" &&
-                snapshotGameDetail.child("field").child((_a = snapshotGameDetail.child("propose").val()) === null || _a === void 0 ? void 0 : _a.land.toString()).child("owner").val() == getCurrentUserNum(snapshotGameDetail))
+                snapshotGameDetail.child("field").child((_a = snapshotGameDetail.child("propose").val()) === null || _a === void 0 ? void 0 : _a.land.toString()).child("owner").val() == getCurrentUserNum(snapshotGameDetail)) {
                 displayProposePhaseBuy(snapshotGameDetail);
+            }
             else if (snapshotGameDetail.child("propose").child("type").val() == "sell" &&
-                ((_b = snapshotGameDetail.child("propose").val()) === null || _b === void 0 ? void 0 : _b.to) == getCurrentUserNum(snapshotGameDetail))
+                ((_b = snapshotGameDetail.child("propose").val()) === null || _b === void 0 ? void 0 : _b.to) == getCurrentUserNum(snapshotGameDetail)) {
                 displayProposePhaseSell(snapshotGameDetail);
+            }
             break;
         case "end":
             if (snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail))
@@ -647,7 +649,18 @@ function proposeBuy(snapshotGameDetail, price, fieldNum) {
 function turnEnd(snapshotGameDetail) {
     var now = snapshotGameDetail.child("who").val();
     payTax(snapshotGameDetail);
+    if (snapshotGameDetail.child("users").child(now.toString()).child("money").val() <= 0) {
+        ref.child("detail").child(currentGame).child("users").child(now.toString()).child("dead").set(true);
+        for (var key in Object.keys(snapshotGameDetail.child("field").val())) {
+            if (snapshotGameDetail.child("field").val()[key].owner == getCurrentUserNum(snapshotGameDetail)) {
+                ref.child("detail").child(currentGame).child("field").child(key).child("house").set(0);
+                ref.child("detail").child(currentGame).child("field").child(key).child("owner").set(null);
+            }
+        }
+    }
     var next = (now + 1) % snapshotGameDetail.child("users").val().length;
+    while (snapshotGameDetail.child("users").child(next.toString()).child("dead").val())
+        next = (next + 1) % snapshotGameDetail.child("users").val().length;
     ref.child("detail").child(currentGame).child("who").set(next);
     ref.child("detail").child(currentGame).child("phase").set("main");
     addMessage(getUserNameFromUserNum(getCurrentUserNum(snapshotGameDetail), snapshotGameDetail)
