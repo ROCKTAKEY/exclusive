@@ -173,6 +173,14 @@ table#field td::before {
     content: "";
 }
 
+table#field td.proposed {
+    box-shadow: 0 0 10px red;
+}
+
+table#field td.pinned {
+    box-shadow: 0 0 10px blue;
+}
+
 .num {
     float: right;
     font-size: 10px;
@@ -368,6 +376,7 @@ input[type="checkbox"] {
     background-color: #004400;
     box-shadow: none;
 }
+
 #user-list {
     border-radius: 20px 20px 20px 20px;
     background-color: #ccbbff;
