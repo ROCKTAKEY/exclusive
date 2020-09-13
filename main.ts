@@ -193,10 +193,10 @@ function updateGame(snapshotGameDetail: firebase.database.DataSnapshot) {
                 snapshotGameDetail.child("field").child(
                     snapshotGameDetail.child("propose").val()?.land.toString()
                 ).child("owner").val() == getCurrentUserNum(snapshotGameDetail))
-                displayProposePhaseSell(snapshotGameDetail);
+                displayProposePhaseBuy(snapshotGameDetail);
             else if (snapshotGameDetail.child("propose").child("type").val() == "sell" &&
                 snapshotGameDetail.child("propose").val()?.to == getCurrentUserNum(snapshotGameDetail))
-                displayProposePhaseBuy(snapshotGameDetail);
+                displayProposePhaseSell(snapshotGameDetail);
             break;
         case "end":
             if(snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail))

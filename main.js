@@ -162,10 +162,10 @@ function updateGame(snapshotGameDetail) {
         case "propose":
             if (snapshotGameDetail.child("propose").child("type").val() == "buy" &&
                 snapshotGameDetail.child("field").child((_a = snapshotGameDetail.child("propose").val()) === null || _a === void 0 ? void 0 : _a.land.toString()).child("owner").val() == getCurrentUserNum(snapshotGameDetail))
-                displayProposePhaseSell(snapshotGameDetail);
+                displayProposePhaseBuy(snapshotGameDetail);
             else if (snapshotGameDetail.child("propose").child("type").val() == "sell" &&
                 ((_b = snapshotGameDetail.child("propose").val()) === null || _b === void 0 ? void 0 : _b.to) == getCurrentUserNum(snapshotGameDetail))
-                displayProposePhaseBuy(snapshotGameDetail);
+                displayProposePhaseSell(snapshotGameDetail);
             break;
         case "end":
             if (snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail))
