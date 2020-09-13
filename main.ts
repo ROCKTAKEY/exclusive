@@ -318,7 +318,8 @@ function displayLandPhaseHouse(snapshotGameDetail: firebase.database.DataSnapsho
     let houseValue = snapshotGameDetail.child("field").child(fieldNum.toString()).child("value").val() * housePriceRate;
     let phaseMessage = document.getElementById("phase-message");
     phaseMessage.textContent =
-        "This land is yours. Buy house for $" + houseValue.toString() + " here?";
+        "This land " + snapshotGameDetail.child("users").child(getCurrentUserNum(snapshotGameDetail).toString()).child("position").val()
+        +" is yours. Buy house for $" + houseValue.toString() + " here?";
 
     let phaseContent = document.getElementById("phase-content");
     let buyButton = document.createElement("button");
@@ -499,7 +500,7 @@ function displayUserList(snapshotGameDetail: firebase.database.DataSnapshot) {
         listOfElement.classList.add("user-list-element");
 
         let title = document.createElement("h3");
-        title.textContent = key + ": " + user.name;
+        title.textContent = key + ": " + user.name + " at " + user.position;
         listOfElement.appendChild(title);
 
         let money = document.createElement("span");

@@ -267,7 +267,8 @@ function displayLandPhaseHouse(snapshotGameDetail, fieldNum) {
     var houseValue = snapshotGameDetail.child("field").child(fieldNum.toString()).child("value").val() * housePriceRate;
     var phaseMessage = document.getElementById("phase-message");
     phaseMessage.textContent =
-        "This land is yours. Buy house for $" + houseValue.toString() + " here?";
+        "This land " + snapshotGameDetail.child("users").child(getCurrentUserNum(snapshotGameDetail).toString()).child("position").val()
+            + " is yours. Buy house for $" + houseValue.toString() + " here?";
     var phaseContent = document.getElementById("phase-content");
     var buyButton = document.createElement("button");
     buyButton.classList.add("buy-button");
@@ -415,7 +416,7 @@ function displayUserList(snapshotGameDetail) {
         var listOfElement = document.createElement("div");
         listOfElement.classList.add("user-list-element");
         var title = document.createElement("h3");
-        title.textContent = key + ": " + user.name;
+        title.textContent = key + ": " + user.name + " at " + user.position;
         listOfElement.appendChild(title);
         var money = document.createElement("span");
         money.classList.add("money");
