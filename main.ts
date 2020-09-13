@@ -189,11 +189,14 @@ function updateGame(snapshotGameDetail: firebase.database.DataSnapshot) {
                 displayLandPhase(snapshotGameDetail);
             break;
         case "propose":
-            if (snapshotGameDetail.child("field").child(
-                snapshotGameDetail.child("propose").val()?.land.toString()
-            ).child("owner").val() == getCurrentUserNum(snapshotGameDetail) ||
+            if (snapshotGameDetail.child("propose").child("type").val() == "buy" &&
+                snapshotGameDetail.child("field").child(
+                    snapshotGameDetail.child("propose").val()?.land.toString()
+                ).child("owner").val() == getCurrentUserNum(snapshotGameDetail))
+                displayProposePhaseSell(snapshotGameDetail);
+            else if (snapshotGameDetail.child("propose").child("type").val() == "sell" &&
                 snapshotGameDetail.child("propose").val()?.to == getCurrentUserNum(snapshotGameDetail))
-                displayProposePhase(snapshotGameDetail);
+                displayProposePhaseBuy(snapshotGameDetail);
             break;
         case "end":
             if(snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail))
@@ -380,14 +383,6 @@ function displayLandPhasePay(snapshotGameDetail: firebase.database.DataSnapshot,
     phaseContent.appendChild(OKButton);
 }
 
-function displayProposePhase(snapshotGameDetail: firebase.database.DataSnapshot){
-    if(snapshotGameDetail.child("propose").child("type").val() == "sell"){
-        displayProposePhaseSell(snapshotGameDetail);
-    } else {
-        displayProposePhaseBuy(snapshotGameDetail);
-    }
-}
-
 function displayProposePhaseSell(snapshotGameDetail: firebase.database.DataSnapshot){
     let propose = snapshotGameDetail.child("propose").val();
     let seller = snapshotGameDetail.child("who").val();
@@ -403,7 +398,7 @@ function displayProposePhaseSell(snapshotGameDetail: firebase.database.DataSnaps
     let buyButton = document.createElement("button");
     buyButton.classList.add("buy-button");
     buyButton.textContent = "Buy";
-    buyButton.addEventListener("click", function(){
+    buyButton.addEventListener("click", function() {
         buyButton.disabled = true;
         getLand(snapshotGameDetail, land);
         payMoney(snapshotGameDetail, price);
@@ -450,9 +445,9 @@ function displayProposePhaseBuy(snapshotGameDetail: firebase.database.DataSnapsh
     buyButton.textContent = "Sell";
     buyButton.addEventListener("click", function(){
         buyButton.disabled = true;
-        getLandWho(snapshotGameDetail, land, buyer);
         getMoney(snapshotGameDetail, price);
-        getMoneyWho(snapshotGameDetail, price, buyer);
+        getLandWho(snapshotGameDetail, land, buyer);
+        payMoneyWho(snapshotGameDetail, price, buyer);
         ref.child("detail").child(currentGame).child("propose").set(null);
         ref.child("detail").child(currentGame).child("phase").set("main");
         addMessage(
@@ -470,6 +465,7 @@ function displayProposePhaseBuy(snapshotGameDetail: firebase.database.DataSnapsh
         notBuyButton.disabled = true;
         ref.child("detail").child(currentGame).child("propose").set(null);
         ref.child("detail").child(currentGame).child("phase").set("main");
+        addMessage("The proposal was rejected.");
     });
 
     phaseContent.appendChild(buyButton);
@@ -519,6 +515,9 @@ function displayUserList(snapshotGameDetail: firebase.database.DataSnapshot) {
                 let cell = document.createElement("span");
                 cell.classList.add("mod" + Number(key) % 10);
                 cell.classList.add("cell");
+                cell.addEventListener("click", function(){
+                    displayLandInfo(snapshotGameDetail, Number(key));
+                })
 
                 let house = document.createElement("span");
                 house.classList.add("house");
@@ -750,21 +749,25 @@ function calcRent(land, bonusp: boolean) {
 
 function proposeSell(snapshotGameDetail: firebase.database.DataSnapshot,
                      price: number, fieldNum: number, buyerid: number) {
-    let propose = ref.child("detail").child(currentGame).child("propose");
-    propose.child("type").set("sell");
-    propose.child("price").set(price);
-    propose.child("land").set(fieldNum);
-    propose.child("to").set(buyerid);
-    ref.child("detail").child(currentGame).child("phase").set("propose");
+    if (snapshotGameDetail.child("state").val() == "main" && snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
+        let propose = ref.child("detail").child(currentGame).child("propose");
+        propose.child("type").set("sell");
+        propose.child("price").set(price);
+        propose.child("land").set(fieldNum);
+        propose.child("to").set(buyerid);
+        ref.child("detail").child(currentGame).child("phase").set("propose");
+    }
 }
 
 function proposeBuy(snapshotGameDetail: firebase.database.DataSnapshot,
                     price: number, fieldNum: number) {
-    let propose = ref.child("detail").child(currentGame).child("propose");
-    propose.child("type").set("buy");
-    propose.child("price").set(price);
-    propose.child("land").set(fieldNum);
-    ref.child("detail").child(currentGame).child("phase").set("propose");
+    if (snapshotGameDetail.child("state").val() == "main" && snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
+        let propose = ref.child("detail").child(currentGame).child("propose");
+        propose.child("type").set("buy");
+        propose.child("price").set(price);
+        propose.child("land").set(fieldNum);
+        ref.child("detail").child(currentGame).child("phase").set("propose");
+    }
 }
 
 function turnEnd(snapshotGameDetail: firebase.database.DataSnapshot){

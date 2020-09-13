@@ -160,9 +160,12 @@ function updateGame(snapshotGameDetail) {
                 displayLandPhase(snapshotGameDetail);
             break;
         case "propose":
-            if (snapshotGameDetail.child("field").child((_a = snapshotGameDetail.child("propose").val()) === null || _a === void 0 ? void 0 : _a.land.toString()).child("owner").val() == getCurrentUserNum(snapshotGameDetail) ||
+            if (snapshotGameDetail.child("propose").child("type").val() == "buy" &&
+                snapshotGameDetail.child("field").child((_a = snapshotGameDetail.child("propose").val()) === null || _a === void 0 ? void 0 : _a.land.toString()).child("owner").val() == getCurrentUserNum(snapshotGameDetail))
+                displayProposePhaseSell(snapshotGameDetail);
+            else if (snapshotGameDetail.child("propose").child("type").val() == "sell" &&
                 ((_b = snapshotGameDetail.child("propose").val()) === null || _b === void 0 ? void 0 : _b.to) == getCurrentUserNum(snapshotGameDetail))
-                displayProposePhase(snapshotGameDetail);
+                displayProposePhaseBuy(snapshotGameDetail);
             break;
         case "end":
             if (snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail))
@@ -313,14 +316,6 @@ function displayLandPhasePay(snapshotGameDetail, fieldNum) {
     });
     phaseContent.appendChild(OKButton);
 }
-function displayProposePhase(snapshotGameDetail) {
-    if (snapshotGameDetail.child("propose").child("type").val() == "sell") {
-        displayProposePhaseSell(snapshotGameDetail);
-    }
-    else {
-        displayProposePhaseBuy(snapshotGameDetail);
-    }
-}
 function displayProposePhaseSell(snapshotGameDetail) {
     var propose = snapshotGameDetail.child("propose").val();
     var seller = snapshotGameDetail.child("who").val();
@@ -373,9 +368,9 @@ function displayProposePhaseBuy(snapshotGameDetail) {
     buyButton.textContent = "Sell";
     buyButton.addEventListener("click", function () {
         buyButton.disabled = true;
-        getLandWho(snapshotGameDetail, land, buyer);
         getMoney(snapshotGameDetail, price);
-        getMoneyWho(snapshotGameDetail, price, buyer);
+        getLandWho(snapshotGameDetail, land, buyer);
+        payMoneyWho(snapshotGameDetail, price, buyer);
         ref.child("detail").child(currentGame).child("propose").set(null);
         ref.child("detail").child(currentGame).child("phase").set("main");
         addMessage(getUserNameFromUserNum(buyer, snapshotGameDetail)
@@ -390,6 +385,7 @@ function displayProposePhaseBuy(snapshotGameDetail) {
         notBuyButton.disabled = true;
         ref.child("detail").child(currentGame).child("propose").set(null);
         ref.child("detail").child(currentGame).child("phase").set("main");
+        addMessage("The proposal was rejected.");
     });
     phaseContent.appendChild(buyButton);
     phaseContent.appendChild(notBuyButton);
@@ -426,11 +422,14 @@ function displayUserList(snapshotGameDetail) {
         var ownerTable = document.createElement("div");
         ownerTable.classList.add("owner-table");
         var field = snapshotGameDetail.child("field").val();
-        for (var key_1 in field) {
+        var _loop_2 = function (key_1) {
             if (field[key_1].owner == userNum) {
                 var cell = document.createElement("span");
                 cell.classList.add("mod" + Number(key_1) % 10);
                 cell.classList.add("cell");
+                cell.addEventListener("click", function () {
+                    displayLandInfo(snapshotGameDetail, Number(key_1));
+                });
                 var house = document.createElement("span");
                 house.classList.add("house");
                 house.textContent = field[key_1].house;
@@ -446,6 +445,9 @@ function displayUserList(snapshotGameDetail) {
                 cell.appendChild(money_1);
                 ownerTable.appendChild(cell);
             }
+        };
+        for (var key_1 in field) {
+            _loop_2(key_1);
         }
         listOfElement.appendChild(ownerTable);
         userList.appendChild(listOfElement);
@@ -459,7 +461,7 @@ function displayField(snapshotGameDetail) {
         posToNum[snapshotGameDetail.child("users").val()[key]["position"]]
             .push(Number(key));
     }
-    var _loop_2 = function (i) {
+    var _loop_3 = function (i) {
         var cellName = "cell" + ("0" + i).slice(-2);
         var cell = document.getElementById(cellName);
         var house = cell.getElementsByClassName("house")[0];
@@ -478,7 +480,7 @@ function displayField(snapshotGameDetail) {
         others.textContent = posToNum[i] ? posToNum[i].join(", ") : "";
     };
     for (var i = 0; i < 40; i++) {
-        _loop_2(i);
+        _loop_3(i);
     }
 }
 function displayMessage(snapshotGameDetail) {
@@ -622,19 +624,23 @@ function calcRent(land, bonusp) {
     return ((land.house * houseBonus + 1) * land.value) * (1 + (bonusp ? colorBonus : 0));
 }
 function proposeSell(snapshotGameDetail, price, fieldNum, buyerid) {
-    var propose = ref.child("detail").child(currentGame).child("propose");
-    propose.child("type").set("sell");
-    propose.child("price").set(price);
-    propose.child("land").set(fieldNum);
-    propose.child("to").set(buyerid);
-    ref.child("detail").child(currentGame).child("phase").set("propose");
+    if (snapshotGameDetail.child("state").val() == "main" && snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
+        var propose = ref.child("detail").child(currentGame).child("propose");
+        propose.child("type").set("sell");
+        propose.child("price").set(price);
+        propose.child("land").set(fieldNum);
+        propose.child("to").set(buyerid);
+        ref.child("detail").child(currentGame).child("phase").set("propose");
+    }
 }
 function proposeBuy(snapshotGameDetail, price, fieldNum) {
-    var propose = ref.child("detail").child(currentGame).child("propose");
-    propose.child("type").set("buy");
-    propose.child("price").set(price);
-    propose.child("land").set(fieldNum);
-    ref.child("detail").child(currentGame).child("phase").set("propose");
+    if (snapshotGameDetail.child("state").val() == "main" && snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
+        var propose = ref.child("detail").child(currentGame).child("propose");
+        propose.child("type").set("buy");
+        propose.child("price").set(price);
+        propose.child("land").set(fieldNum);
+        ref.child("detail").child(currentGame).child("phase").set("propose");
+    }
 }
 function turnEnd(snapshotGameDetail) {
     var now = snapshotGameDetail.child("who").val();
