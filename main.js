@@ -624,7 +624,8 @@ function calcRent(land, bonusp) {
     return ((land.house * houseBonus + 1) * land.value) * (1 + (bonusp ? colorBonus : 0)) / 2;
 }
 function proposeSell(snapshotGameDetail, price, fieldNum, buyerid) {
-    if (snapshotGameDetail.child("state").val() == "main" && snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
+    if (snapshotGameDetail.child("phase").val() == "main" &&
+        snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
         var propose = ref.child("detail").child(currentGame).child("propose");
         propose.child("type").set("sell");
         propose.child("price").set(price);
@@ -634,7 +635,8 @@ function proposeSell(snapshotGameDetail, price, fieldNum, buyerid) {
     }
 }
 function proposeBuy(snapshotGameDetail, price, fieldNum) {
-    if (snapshotGameDetail.child("state").val() == "main" && snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
+    if (snapshotGameDetail.child("phase").val() == "main" &&
+        snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
         var propose = ref.child("detail").child(currentGame).child("propose");
         propose.child("type").set("buy");
         propose.child("price").set(price);

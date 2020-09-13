@@ -749,7 +749,8 @@ function calcRent(land, bonusp: boolean) {
 
 function proposeSell(snapshotGameDetail: firebase.database.DataSnapshot,
                      price: number, fieldNum: number, buyerid: number) {
-    if (snapshotGameDetail.child("state").val() == "main" && snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
+    if (snapshotGameDetail.child("phase").val() == "main" &&
+        snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
         let propose = ref.child("detail").child(currentGame).child("propose");
         propose.child("type").set("sell");
         propose.child("price").set(price);
@@ -761,7 +762,8 @@ function proposeSell(snapshotGameDetail: firebase.database.DataSnapshot,
 
 function proposeBuy(snapshotGameDetail: firebase.database.DataSnapshot,
                     price: number, fieldNum: number) {
-    if (snapshotGameDetail.child("state").val() == "main" && snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
+    if (snapshotGameDetail.child("phase").val() == "main" &&
+        snapshotGameDetail.child("who").val() == getCurrentUserNum(snapshotGameDetail)) {
         let propose = ref.child("detail").child(currentGame).child("propose");
         propose.child("type").set("buy");
         propose.child("price").set(price);
