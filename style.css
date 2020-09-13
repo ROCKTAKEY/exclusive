@@ -1,0 +1,488 @@
+body h1#title {
+    text-align: center;
+    font-size: 50px;
+    border: 5px solid;
+    background-color: pink;
+    color: white;
+    text-shadow: 2px 2px 2px gray;
+    padding: 5px 5px;
+    margin: 0 100px;
+    border-radius: 0 0 40px 40px;
+}
+
+#signed {
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+}
+
+#logout {
+    padding: 5px;
+    margin: auto;
+    background-color: red;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    box-shadow: 2px 2px 2px gray;
+}
+
+#logout:hover {
+    background-color: #bb0000
+}
+
+#newroom {
+    padding: 10px;
+    margin: auto;
+    background-color: blue;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    box-shadow: 2px 2px 2px gray;
+}
+
+#newroom:hover {
+    background-color: #0000aa
+}
+
+#game-list-view {
+    padding: 30px;
+}
+
+#game-list-view .game-list-element {
+    padding: 20px 20px;
+    background-color: #dddddd;
+    border-radius: 20px 20px 20px 20px;
+    margin: 10px 10px;
+    cursor: pointer;
+}
+
+#game-list-view .game-list-element:hover {
+    background-color: #cccccc;
+}
+
+#game-list-view .game-list-element .gameid {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#game-list-view .game-list-element .gameid::before {
+    content: "ID: "
+}
+
+#game-list-view .game-list-element .gamestate {
+    color: #008888;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 10px 10px;
+}
+
+#game-list-view .game-list-element .gamestate::before {
+    content: "state: "
+}
+
+#game-list-view .game-list-element .userlist {
+    padding: 5px;
+}
+
+#game-list-view .game-list-element .userlist::before {
+    content: "Members: "
+}
+
+#game #game-gameid {
+    color: gray;
+}
+
+#game #game-gameid::before {
+    content: "ID: ";
+}
+
+#game table {
+    margin: auto;
+}
+
+#game table td {
+    padding: 10px;
+    margin: 10px;
+    border: solid 1px black;
+    text-align: center;
+}
+
+td#cell00, td#cell10, td#cell20, td#cell30 {
+    background-color: skyblue;
+}
+
+.mod1 {
+    background-color: #ffffff;
+}
+
+.mod2 {
+    background-color: #ffff00;
+}
+
+.mod3 {
+    background-color: #ff00ff;
+    color: white;
+}
+
+.mod4 {
+    background-color: #00ffff;
+}
+
+.mod5 {
+    background-color: #ff0000;
+    color: white;
+}
+
+.mod6 {
+    background-color: #00ff00;
+}
+
+.mod7 {
+    background-color: #0000ff;
+    color: white;
+}
+
+.mod8 {
+    background-color: black;
+    color: white;
+}
+
+.mod9 {
+    background-color: #888888;
+    color: white;
+}
+
+table#field {
+    table-layout: fixed;
+}
+
+table#field td {
+    width: 50px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+table#field td::before {
+    display: block;
+    float: left;
+    height: 50px;
+    content: "";
+}
+
+.num {
+    float: right;
+    font-size: 10px;
+    font-weight: none;
+}
+
+.owner {
+    display: inline-block;
+    border-radius: 8px 8px 8px 8px;
+    height: 16px;
+    width: 16px;
+    background-color: green;
+    color: white;
+    border: solid 0.5px;
+    font-size: 10px;
+}
+
+.house {
+    float: left;
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+    background-color: black;
+    color: white;
+    /* border: solid 1px white; */
+    /* border-top: none; */
+    text-align: center;
+    margin: auto;
+    box-shadow: 2px 2px 1px gray;
+}
+
+.house::after {
+    content: "";
+    float: right;
+    position: relative;
+    top: -20px;
+    width: 0;
+    border-bottom: 7px solid black;
+    border-left: 7.5px solid transparent;
+    border-right: 7.5px solid transparent;
+}
+
+.house:empty {
+    display: none;
+}
+
+table#guide td {
+    height: 50px;
+    width: 50px;
+    padding: 10px 10px;
+}
+
+#game #phase {
+    color: white;
+    background-color: #272727;
+    padding: 15px 15px;
+    border-radius: 20px 20px 20px 20px;
+    margin: 20px 20px;
+    text-align: center;
+}
+
+#game #phase h2 {
+    margin-top: 10px;
+    color: #cccc00;
+    text-align: center;
+    font-size: 30px;
+    text-transform: capitalize;
+    margin-bottom: 0;
+}
+
+#game #phase #phase-who {
+    color: #aaaa00;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+#phase label {
+    cursor: pointer;
+    font-size: 30px;
+}
+
+#phase label::before {
+    vertical-align: middle;
+    border: 2px solid white;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    content: "";
+    margin: 10px;
+}
+
+#phase input[type="checkbox"]:checked + label::before {
+    width: 15px;
+    top: -7.5px;
+    left: 7.5px;
+    margin-right: 19px;
+    border: 2px solid #00ff00;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+#phase button.dice-button {
+    background-color: white;
+    color: black;
+    border-bottom: solid 5px gray;
+    box-shadow-bottom: 2px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 10px 10px 10px 10px;
+    cursor: pointer;
+}
+
+#phase button.dice-button::first-letter {
+    color: red;
+}
+
+#phase button.dice-button:hover {
+    border-bottom: none;
+    margin-top: 5px;
+}
+
+#phase button.buy-button {
+    margin: 10px;
+    padding: 10px 10px 10px 10px;
+    border: none;
+    background: blue;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    box-shadow: 2px 2px 2px white;
+}
+
+#phase button.buy-button::before {
+    font-weight: bold;
+    font-size: 20px;
+    content: "$ ";
+    color: yellow;
+}
+
+#phase button.buy-button:hover {
+    background: #0000aa;
+}
+
+#phase button.not-buy-button {
+    margin: 10px;
+    padding: 10px 10px 10px 10px;
+    border: none;
+    background: red;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    box-shadow: 2px 2px 2px white;
+}
+
+#phase button.not-buy-button::before {
+    font-weight: bold;
+    font-size: 20px;
+    content: "× ";
+}
+
+#phase button.not-buy-button:hover {
+    background: #dd0000;
+}
+
+#phase button.OKButton {
+    display: block;
+    text-align: center;
+    margin: auto;
+    font-size: 20px;
+    padding: 10px 10px 10px 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-bottom: solid 5px #003300;
+    box-shadow: 2px 2px 1px black;
+    cursor: pointer;
+}
+
+#phase button.OKButton:hover {
+    border-bottom: 0;
+    margin-top: 5px;
+    background-color: #004400;
+    box-shadow: none;
+}
+#user-list {
+    border-radius: 20px 20px 20px 20px;
+    background-color: #ccbbff;
+    padding: 15px;
+    padding-top: 10px;
+    margin: 20px;
+}
+
+.user-list-element {
+    background-color: #ddddee;
+    border-radius: 5px 5px 5px 5px;
+    margin: 10px 10px;
+    padding: 15px 15px 15px 15px;
+}
+
+.user-list-element h3 {
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    display: inline;
+}
+
+.user-list-element .money {
+    border-radius: 10px 10px 10px 10px;
+    padding: 5px 5px 5px 5px;
+    background-color: #ffdd00;
+    margin: 0px;
+    float: right;
+}
+
+.user-list-element .money::before {
+    content: "$";
+    margin-right: 3px;
+}
+
+.user-list-element .owner-table {
+    display: block;
+    margin: 10px 10px 10px 10px;
+}
+
+.user-list-element .owner-table .cell {
+    display: inline-block;
+    border: solid black;
+    margin: 5px 5px 5px 5px;
+    padding: 10px 10px;
+    vertical-aign: middle;
+}
+
+.user-list-element .owner-table .cell .money {
+    border-radius: 10px 10px 10px 10px;
+    padding: 5px 5px 5px 5px;
+    background-color: #ffdd00;
+    margin: 0px;
+    float: center;
+    color: black;
+}
+
+.user-list-element table .money::before {
+    content: "$";
+    margin-right: 3px;
+}
+
+#message {
+    height: 310px;
+    overflow: auto;
+    background-color: #66aaaa;
+    margin: 10px 10px;
+    padding: 10px 10px;
+    box-shadow: 0 0 10px #66aaaa;
+}
+
+#message .message-element {
+    padding: 3px;
+    border-radius: 15px 15px 0 15px;
+    margin: 5px 5px 5px 5px;
+    background-color: #aaffaa;
+}
+
+#info {
+    height: 330px;
+    padding: 20px 20px;
+    background-color: #fffaaf;
+    margin: 10px 10px;
+    box-shadow: 0 0 10px #aaa88a;
+}
+
+#info ul {
+    list-style: none;
+}
+
+#info button {
+    background-color: blue;
+    color: white;
+    padding: 10px 10px;
+    margin: 3px 3px;
+    font-size: 20px;
+    border: none;
+    box-shadow: 3px 3px 1px gray;
+}
+
+#info button:hover {
+    background-color: #0000aa;
+}
+
+@media screen and (min-width: 1500px) {
+    #phase {
+        position: absolute;
+        top: 130px;
+        float: left;
+        width: calc((100% - 950px) / 2);
+    }
+    #user-list {
+        position: absolute;
+        top: 130px;
+        left:  calc((100% - 1000px) / 2 + 900px);
+        float: right;
+        width: calc((100% - 1000px) / 2);
+
+    }
+}

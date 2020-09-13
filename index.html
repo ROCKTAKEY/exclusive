@@ -6,12 +6,98 @@
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
-        <h1>Exclusive</h1>
-        <div id="firebaseui-auth-container"></div>
-        <div id="auth-loader">Now loading...</div>
-        <div id="signed"></div>
-        <button id="logout" style="display: none">logout</button>
-        <div id="game-list-view"></div>
+        <h1 id="title">Exclusive</h1>
+        <div id="not-game">
+            <div id="firebaseui-auth-container"></div>
+            <div id="auth-loader">Now loading...</div>
+            <div id="signed"></div>
+            <button id="logout" style="display: none">logout</button>
+            <button id="newroom">Create Room</button>
+            <div id="game-list-view"></div>
+        </div>
+
+        <div id="game" style="display: none">
+            <div id="game-gameid"></div>
+            <button id="remove-game">Remove game</button>
+            <table id="field">
+                <tr>
+                    <td id="cell00"><div class="cell-meta"><span class="num">0</span><span class="house"></span><span class="others"></span></td>
+                        <td id="cell01" class="mod1"><div class="cell-meta"><span class="num">1</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                        <td id="cell02" class="mod2"><div class="cell-meta"><span class="num">2</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                        <td id="cell03" class="mod3"><div class="cell-meta"><span class="num">3</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                        <td id="cell04" class="mod4"><div class="cell-meta"><span class="num">4</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                        <td id="cell05" class="mod5"><div class="cell-meta"><span class="num">5</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                        <td id="cell06" class="mod6"><div class="cell-meta"><span class="num">6</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                        <td id="cell07" class="mod7"><div class="cell-meta"><span class="num">7</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                        <td id="cell08" class="mod8"><div class="cell-meta"><span class="num">8</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                        <td id="cell09" class="mod9"><div class="cell-meta"><span class="num">9</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                        <td id="cell10"><div class="cell-meta"><span class="num">10</span><span class="house"></span></div><span class="others"></span></td>
+                </tr>
+                <tr>
+                    <td id="cell39" class="mod9"><div class="cell-meta"><span class="num">39</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td colspan="9" rowspan="9" id="game-large-space">
+                        <div id="message"></div>
+                        <div id="info"></div>
+                    </td>
+                    <td id="cell11" class="mod1"><div class="cell-meta"><span class="num">11</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                </tr>
+                <tr>
+                    <td id="cell38" class="mod8"><div class="cell-meta"><span class="num">38</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell12" class="mod2"><div class="cell-meta"><span class="num">12</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                </tr>
+                <tr>
+                    <td id="cell37" class="mod7"><div class="cell-meta"><span class="num">37</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell13" class="mod3"><div class="cell-meta"><span class="num">13</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                </tr>
+                <tr>
+                    <td id="cell36" class="mod6"><div class="cell-meta"><span class="num">36</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell14" class="mod4"><div class="cell-meta"><span class="num">14</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                </tr>
+                <tr>
+                    <td id="cell35" class="mod5"><div class="cell-meta"><span class="num">35</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell15" class="mod5"><div class="cell-meta"><span class="num">15</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                </tr>
+                <tr>
+                    <td id="cell34" class="mod4"><div class="cell-meta"><span class="num">34</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell16" class="mod6"><div class="cell-meta"><span class="num">16</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                </tr>
+                <tr>
+                    <td id="cell33" class="mod3"><div class="cell-meta"><span class="num">33</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell17" class="mod7"><div class="cell-meta"><span class="num">17</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                </tr>
+                <tr>
+                    <td id="cell32" class="mod2"><div class="cell-meta"><span class="num">32</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell18" class="mod8"><div class="cell-meta"><span class="num">18</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                </tr>
+                <tr>
+                    <td id="cell31" class="mod1"><div class="cell-meta"><span class="num">31</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell19" class="mod9"><div class="cell-meta"><span class="num">19</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                </tr>
+                <tr>
+                    <td id="cell30"><div class="cell-meta"><span class="num">30</span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell29" class="mod9"><div class="cell-meta"><span class="num">29</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell28" class="mod8"><div class="cell-meta"><span class="num">28</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell27" class="mod7"><div class="cell-meta"><span class="num">27</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell26" class="mod6"><div class="cell-meta"><span class="num">26</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell25" class="mod5"><div class="cell-meta"><span class="num">25</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell24" class="mod4"><div class="cell-meta"><span class="num">24</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell23" class="mod3"><div class="cell-meta"><span class="num">23</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell22" class="mod2"><div class="cell-meta"><span class="num">22</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell21" class="mod1"><div class="cell-meta"><span class="num">21</span><span class="owner"></span><span class="house"></span></div><span class="others"></span></td>
+                    <td id="cell20"><div class="cell-meta"><span class="num">20</span><span class="house"></span></div><span class="others"></span></td>
+                </tr>
+            </table>
+            <div id="phase">
+                <h2 id="phase-title">Phase</h2>
+                <h2 id="phase-who"></h2>
+                <div id="phase-message"></div>
+                <div id="phase-content"></div>
+            </div>
+            <div id="user-list">
+                <h2>User List</h2>
+                <div id="user-list-main"></div>
+            </div>
+        </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>

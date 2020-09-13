@@ -1,0 +1,68 @@
+* Data structure
+  #+BEGIN_SRC json -n
+    {
+        outline: {
+                <game_id>: {
+                    users: {
+                        0: {
+                            name: <user_name>,
+                            id: <user_id>
+                        },
+                        ...
+                    },
+                    state: "prepare" | "playing" | "finished",
+                },
+        }
+        detail: {
+            <game_id> {
+                users: {
+                    0: {
+                        id: <user_id>, // user_num=0
+                        name: <user_name>,
+                        state: "prepare" | "ready",
+                        money: <money_of_user0>,
+                        position: 0~39,
+                    },
+                    ...
+                },
+                field: {
+                    1: {
+                        owner: <user_num> | null,
+                        house: 0-4,
+                        base: <rent>,
+                        value: <value>,
+                    },
+                    ...
+                },
+                who: <user_num>,
+                phase: "main" | "propose" | "land" | "end" | "prepare",
+                propose: null | {
+                    type: "sell" | "buy",
+                    land: 0~39,
+                    price: 000000,
+                    to: <user_num>  // This is only for "sell"
+                },
+                message: "Message..." | null,
+
+            },
+            ...
+        }
+    }
+  #+END_SRC
+
+* Table
+  |  _0_ |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | ~10~ |
+  |   39 |    |    |    |    |    |    |    |    |    |   11 |
+  |   38 |    |    |    |    |    |    |    |    |    |   12 |
+  |   37 |    |    |    |    |    |    |    |    |    |   13 |
+  |   36 |    |    |    |    |    |    |    |    |    |   14 |
+  |   35 |    |    |    |    |    |    |    |    |    |   15 |
+  |   34 |    |    |    |    |    |    |    |    |    |   16 |
+  |   33 |    |    |    |    |    |    |    |    |    |   17 |
+  |   32 |    |    |    |    |    |    |    |    |    |   18 |
+  |   31 |    |    |    |    |    |    |    |    |    |   19 |
+  | ~30~ | 29 | 28 | 27 | 26 | 25 | 24 | 23 | 22 | 21 | ~20~ |
+
+  - _0_: Get $200 when you pass
+  - ~0~: None
+  - mod 10 equivalence means land groups.
