@@ -784,6 +784,7 @@ function turnEnd(snapshotGameDetail: firebase.database.DataSnapshot){
             if(snapshotGameDetail.child("field").val()[key].owner == getCurrentUserNum(snapshotGameDetail)){
                 ref.child("detail").child(currentGame).child("field").child(key).child("house").set(0);
                 ref.child("detail").child(currentGame).child("field").child(key).child("owner").set(null);
+                addMessage(getCurrentUserNum(snapshotGameDetail).toString() + " was died.");
             }
         }
     }
