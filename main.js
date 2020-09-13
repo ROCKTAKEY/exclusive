@@ -467,6 +467,14 @@ function displayField(snapshotGameDetail) {
     var _loop_3 = function (i) {
         var cellName = "cell" + ("0" + i).slice(-2);
         var cell = document.getElementById(cellName);
+        if (posToNum[i])
+            cell.classList.add("pinned");
+        else
+            cell.classList.remove("pinned");
+        if (snapshotGameDetail.child("propose").val() && snapshotGameDetail.child("propose").child("land").val() == i)
+            cell.classList.add("proposed");
+        else
+            cell.classList.remove("proposed");
         var house = cell.getElementsByClassName("house")[0];
         var owner = cell.getElementsByClassName("owner")[0];
         var others = cell.getElementsByClassName("others")[0];
@@ -653,7 +661,7 @@ function turnEnd(snapshotGameDetail) {
     if (snapshotGameDetail.child("users").child(now.toString()).child("money").val() <= 0) {
         ref.child("detail").child(currentGame).child("users").child(now.toString()).child("dead").set(true);
         for (var key in Object.keys(snapshotGameDetail.child("field").val())) {
-            if (snapshotGameDetail.child("field").val()[key].owner == getCurrentUserNum(snapshotGameDetail)) {
+            if (snapshotGameDetail.child("field").child(key).child("owner").val() == getCurrentUserNum(snapshotGameDetail)) {
                 ref.child("detail").child(currentGame).child("field").child(key).child("house").set(0);
                 ref.child("detail").child(currentGame).child("field").child(key).child("owner").set(null);
                 addMessage(getCurrentUserNum(snapshotGameDetail).toString() + " was died.");
