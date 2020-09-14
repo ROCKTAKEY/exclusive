@@ -480,20 +480,39 @@ input[type="checkbox"] {
     background-color: #0000aa;
 }
 
-@media screen and (min-width: 1500px) {
-    #phase {
-        position: absolute;
-        top: 110px;
-        float: left;
-        width: calc((100% - 950px) / 2);
+@media screen and (min-width: 1000px) {
+    #game table#field {
+        margin: 0;
     }
-    #user-list {
+
+    #not-field {
+        width: calc(100vw - 900px);
         position: absolute;
         top: 110px;
-        left:  calc((100% - 1000px) / 2 + 900px);
+        left: 850px;
         float: right;
-        width: calc((100% - 1000px) / 2);
-        height: calc(100% - 200px);
+        padding: 0 0 0 0;
+
+    }
+
+    #game #phase {
+        margin: 0 0 0 0;
+    }
+
+    #user-list {
+        width: calc(100vw - 900px - 30px);
+        float: right;
+        position: relative;
+        max-height: calc(100vh - 100px - 100% - 50px);
+        margin: 0 0 0 0;
+        margin-top: 10px;
+        margin-bottom: 10px;
         overflow: auto;
+        position: absolute;
+    }
+
+    #user-list .user-list-element .cell {
+        transform: scale(0.7, 0.7);
+        margin: -5px -5px -5px -5px;
     }
 }
