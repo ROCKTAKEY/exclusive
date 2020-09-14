@@ -6,6 +6,7 @@ var colorBonus = 0.25;
 var houseBonus = 1;
 var tax = 200;
 var housePriceRate = 1;
+var rentRate = 0.75;
 function updateGameListView(outline) {
     if (outline == null)
         return;
@@ -634,7 +635,7 @@ function payTax(snapshotGameDetail) {
     payMoney(snapshotGameDetail, tax);
 }
 function calcRent(land, bonusp) {
-    return ((land.house * houseBonus + 1) * land.value) * (1 + (bonusp ? colorBonus : 0)) / 2;
+    return ((land.house * houseBonus + 1) * land.value) * (1 + (bonusp ? colorBonus : 0)) * rentRate;
 }
 function proposeSell(snapshotGameDetail, price, fieldNum, buyerid) {
     if (snapshotGameDetail.child("phase").val() == "main" &&

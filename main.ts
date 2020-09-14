@@ -17,6 +17,8 @@ const tax = 200;
 
 const housePriceRate = 1;
 
+const rentRate = 0.75;
+
 function updateGameListView (outline: firebase.database.DataSnapshot) {
     if (outline == null) return;
     let list = document.getElementById("game-list-view");
@@ -756,7 +758,7 @@ function payTax(snapshotGameDetail: firebase.database.DataSnapshot) {
 }
 
 function calcRent(land, bonusp: boolean) {
-    return ((land.house * houseBonus + 1) * land.value) * (1 + (bonusp ? colorBonus : 0)) / 2;
+    return ((land.house * houseBonus + 1) * land.value) * (1 + (bonusp ? colorBonus : 0)) * rentRate;
 }
 
 function proposeSell(snapshotGameDetail: firebase.database.DataSnapshot,
