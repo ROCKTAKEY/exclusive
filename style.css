@@ -486,6 +486,12 @@ input[type="checkbox"] {
     background-color: #0000aa;
 }
 
+#footer {
+    font-size: 10px;
+    text-align: center;
+    color: gray;
+}
+
 @media screen and (min-width: 1000px) {
     #game table#field {
         margin: 0;
