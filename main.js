@@ -415,6 +415,8 @@ function displayUserList(snapshotGameDetail) {
         var userNum = Number(key);
         var listOfElement = document.createElement("div");
         listOfElement.classList.add("user-list-element");
+        if (user.dead)
+            listOfElement.classList.add("dead");
         var title = document.createElement("h3");
         title.textContent = key + ": " + user.name + " at " + user.position;
         listOfElement.appendChild(title);
@@ -658,24 +660,40 @@ function proposeBuy(snapshotGameDetail, price, fieldNum) {
 function turnEnd(snapshotGameDetail) {
     var now = snapshotGameDetail.child("who").val();
     payTax(snapshotGameDetail);
+    addMessage(getUserNameFromUserNum(getCurrentUserNum(snapshotGameDetail), snapshotGameDetail) + " paid $" + tax.toString() + " as tax. ");
     if (snapshotGameDetail.child("users").child(now.toString()).child("money").val() <= 0) {
         ref.child("detail").child(currentGame).child("users").child(now.toString()).child("dead").set(true);
+        addMessage(getUserNameFromUserNum(getCurrentUserNum(snapshotGameDetail), snapshotGameDetail) + " was died.");
         for (var key in Object.keys(snapshotGameDetail.child("field").val())) {
             if (snapshotGameDetail.child("field").child(key).child("owner").val() == getCurrentUserNum(snapshotGameDetail)) {
                 ref.child("detail").child(currentGame).child("field").child(key).child("house").set(0);
                 ref.child("detail").child(currentGame).child("field").child(key).child("owner").set(null);
-                addMessage(getUserNameFromUserNum(getCurrentUserNum(snapshotGameDetail), snapshotGameDetail) + " was died.");
             }
         }
     }
+    var winner = searchWinner(snapshotGameDetail);
+    if (winner) {
+        ref.child("detail").child(currentGame).child("state").set("finished");
+        ref.child("detail").child(currentGame).child("phase").set("finished");
+        addMessage("The game was over. The winner is " + getUserNameFromUserNum(Number(winner), snapshotGameDetail) + "!");
+        return;
+    }
     var next = (now + 1) % snapshotGameDetail.child("users").val().length;
-    while (snapshotGameDetail.child("users").child(next.toString()).child("dead").val())
+    var tmp = snapshotGameDetail.child("users").val().length;
+    while (snapshotGameDetail.child("users").child(next.toString()).child("dead").val() && tmp--)
         next = (next + 1) % snapshotGameDetail.child("users").val().length;
     ref.child("detail").child(currentGame).child("who").set(next);
     ref.child("detail").child(currentGame).child("phase").set("main");
-    addMessage(getUserNameFromUserNum(getCurrentUserNum(snapshotGameDetail), snapshotGameDetail)
-        + " paid $" + tax.toString() + " as tax. "
-        + "Next turn is for " + getUserNameFromUserNum(next, snapshotGameDetail) + ".");
+    addMessage("Next turn is for " + getUserNameFromUserNum(next, snapshotGameDetail) + ".");
+}
+function searchWinner(snapshotGameDetail) {
+    var survivers = Object.keys(snapshotGameDetail.child("users").val()).filter(function (key) {
+        return !snapshotGameDetail.child("users").child(key).child("dead").val();
+    });
+    if (survivers.length == 1)
+        return survivers[0];
+    else
+        return null;
 }
 function setupEvents() {
     ref.child("outline").on("value", function (snapshot) {

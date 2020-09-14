@@ -35,7 +35,7 @@
                     ...
                 },
                 who: <user_num>,
-                phase: "main" | "propose" | "land" | "end" | "prepare",
+                phase: "main" | "propose" | "land" | "end" | "prepare" | "finished",
                 propose: null | {
                     type: "sell" | "buy",
                     land: 0~39,

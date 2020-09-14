@@ -392,6 +392,11 @@ input[type="checkbox"] {
     padding: 15px 15px 15px 15px;
 }
 
+.user-list-element.dead {
+    background-color: #555555;
+    color: white;
+}
+
 .user-list-element h3 {
     padding: 0 0 0 0;
     margin: 0 0 0 0;
@@ -404,6 +409,7 @@ input[type="checkbox"] {
     background-color: #ffdd00;
     margin: 0px;
     float: right;
+    color: black;
 }
 
 .user-list-element .money::before {
