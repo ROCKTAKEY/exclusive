@@ -795,7 +795,7 @@ function turnEnd(snapshotGameDetail: firebase.database.DataSnapshot){
             getCurrentUserNum(snapshotGameDetail), snapshotGameDetail) + " paid $" + tax.toString() + " as tax. "
     );
 
-    if (snapshotGameDetail.child("users").child(now.toString()).child("money").val() <= 0) {
+    if (snapshotGameDetail.child("users").child(now.toString()).child("money").val() - tax <= 0) {
         ref.child("detail").child(currentGame).child("users").child(now.toString()).child("dead").set(true);
         addMessage(getUserNameFromUserNum(getCurrentUserNum(snapshotGameDetail), snapshotGameDetail) + " was died.");
         for(let key in Object.keys(snapshotGameDetail.child("field").val())) {
